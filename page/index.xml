@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pages on cheung4843</title>
+    <link>https://cheung4843.github.io/page/</link>
+    <description>Recent content in Pages on cheung4843</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 11 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://cheung4843.github.io/page/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>https://cheung4843.github.io/about/</link>
+      <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://cheung4843.github.io/about/</guid>
+      <description>Hello, This is my new home.  常用ID : cheung4843、風思 常被稱為 : 園長、社長、二類哲學家、理工文組 準備成為資工新鮮人(NCU CSIE) 曾擔任過資訊社社長 喜歡閱讀關於自我成長、心理學的書籍 正在學習畫畫與書法、平時有寫作、運動習慣 正在參與一件遊戲企劃 幹話很多  </description>
+    </item>
+    
+    <item>
+      <title>Archives</title>
+      <link>https://cheung4843.github.io/archives/</link>
+      <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://cheung4843.github.io/archives/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Search</title>
+      <link>https://cheung4843.github.io/search/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cheung4843.github.io/search/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
