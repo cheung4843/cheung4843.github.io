@@ -6,7 +6,7 @@
         <description>Recent content on cheung4843</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Wed, 11 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://cheung4843.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 09 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://cheung4843.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>[Uva]10107 - What is the Median?</title>
         <link>https://cheung4843.github.io/p/uva10107-what-is-the-median/</link>
         <pubDate>Tue, 10 Aug 2021 11:48:28 +0800</pubDate>
@@ -22,7 +22,7 @@ one value cannot split this array into equal two parts, so we consider the avera
 part, not the fractional. As a result, according to this problem, the median will be 4 !&lt;/p&gt;
 &lt;h2 id=&#34;input&#34;&gt;Input&lt;/h2&gt;
 &lt;p&gt;The input file consists of series of integers X (0 ≤ X &amp;lt; 2
-31) and total number of integers N is less than
+^31) and total number of integers N is less than
 10000. The numbers may have leading or trailing spaces.&lt;/p&gt;
 &lt;h2 id=&#34;output&#34;&gt;Output&lt;/h2&gt;
 &lt;p&gt;For each input print the current value of the median.&lt;/p&gt;
@@ -120,7 +120,7 @@ part, not the fractional. As a result, according to this problem, the median wil
 &lt;p&gt;歡迎大家分享自己對高中生活的想法(雖然大家好像比較喜歡用私訊)，同時希望大家對自己 Make a Wish，一切都會更好的。
 &lt;div class=&#34;video-wrapper&#34;&gt;
     &lt;iframe loading=&#34;lazy&#34; 
-            src=&#34;https://www.youtube.com/embed/_YnU9Ba5ErM&#34; 
+            src=&#34;https://www.youtube.com/embed/_YnU9Ba5ErM?autoplay=1&#34; 
             allowfullscreen 
             title=&#34;YouTube Video&#34;
     &gt;
