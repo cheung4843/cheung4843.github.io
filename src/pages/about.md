@@ -6,7 +6,7 @@ title: "關於我"
 ## 關於 cheung4843
 ![宮本武藏 - 浪人劍客](../assets/images/Vagabond.jpg)
 
-有空再寫，有的時候問你是誰、從哪來?要去哪?我可能都答不出來。
+有空再寫，有的時候問我是誰、從哪來?要去哪?我可能都答不出來。
 
 ### 喜歡的音樂
 
@@ -16,7 +16,7 @@ title: "關於我"
   <iframe
     width="100%"
     height="400"
-    src="https://www.youtube.com/embed/aGCdLKXNF3w"
+    src="https://www.youtube.com/embed/-Djq3QihTyA"
     title="YouTube video player"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
