@@ -33,9 +33,11 @@
     *   **部署與細節優化 (2026-04-27)**：
     *   **修復 Build 錯誤**：解決 GitHub Actions 中因 `ogImage` 型別不相容導致的部署失敗問題。
     *   **首頁影片更新**：同步首頁 Hero Section 影片屬性，加入 `muted`、`loop` 與 `controls`。
+    *   **文章過濾機制調整 (2026-04-27)**：
+    *   簡化 `postFilter.ts` 邏輯，移除發布時間檢查，僅保留 `draft: true` 檢查。
+    *   解決了因伺服器時區 (UTC) 導致未來文章在標籤頁面與首頁消失的問題，確保所有非草稿文章在推送後立即生效。
 
-    ## 技術備忘與排除萬難 (Lessons Learned)
-    *   **圖片路徑陷阱**：
+    ## 技術備忘與排除萬難 (Lessons Learned)    *   **圖片路徑陷阱**：
     *   放在 `public/` 的圖片無法被 Astro 的 `<Image />` 組件優化，強行使用會導致 `ImageNotFound` 錯誤。
     *   **解決方案**：將文章插圖移至 `src/assets/images/`，並在 Markdown 中使用相對於該檔案的相對路徑 (如 `../../../assets/images/pic.jpg`)。
     *   **Layout 與組件型別相容性**：
