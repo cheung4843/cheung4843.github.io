@@ -5,16 +5,32 @@
   .app-prose {
     @apply prose;
 
-    h1,
-    h2,
-    h3,
-    h4,
     th {
       @apply mb-3 text-foreground;
     }
 
+    h1,
+    h2,
+    h3,
+    h4 {
+      @apply mb-3;
+    }
+
+    h1 {
+      color: #bf616a; /* Nord Aurora Red */
+    }
+
+    h2 {
+      color: #d08770; /* Nord Aurora Orange */
+    }
+
     h3 {
+      color: #ebcb8b; /* Nord Aurora Yellow */
       @apply italic;
+    }
+
+    h4 {
+      color: #a3be8c; /* Nord Aurora Green */
     }
 
     p,
