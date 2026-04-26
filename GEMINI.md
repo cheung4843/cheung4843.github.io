@@ -27,15 +27,23 @@
     *   **留言系統**：整合 **Giscus (GitHub Discussions)**，支援深淺色主題自動切換。
     *   **文章目錄 (TOC)**：在文章側邊加入懸浮目錄導覽，支援 h1-h4 層級縮進，僅在桌機版寬螢幕顯示以保護閱讀體驗。
     *   **預覽圖片 (Card Image)**：修改首頁文章卡片，若文章有設定 `ogImage` 則顯示預覽圖。
+    *   **數學公式支援 (LaTeX) (2026-04-27)**：
+    *   整合 `remark-math` 與 `rehype-katex` 插件，支援 Markdown 中的 LaTeX 語法。
+    *   引入 KaTeX CSS 並修正公式顏色，確保在深淺色主題下公式字體顏色正確（跟隨主題文字顏色）。
+    *   **部署與細節優化 (2026-04-27)**：
+    *   **修復 Build 錯誤**：解決 GitHub Actions 中因 `ogImage` 型別不相容導致的部署失敗問題。
+    *   **首頁影片更新**：同步首頁 Hero Section 影片屬性，加入 `muted`、`loop` 與 `controls`。
 
-## 技術備忘與排除萬難 (Lessons Learned)
-*   **圖片路徑陷阱**：
+    ## 技術備忘與排除萬難 (Lessons Learned)
+    *   **圖片路徑陷阱**：
     *   放在 `public/` 的圖片無法被 Astro 的 `<Image />` 組件優化，強行使用會導致 `ImageNotFound` 錯誤。
     *   **解決方案**：將文章插圖移至 `src/assets/images/`，並在 Markdown 中使用相對於該檔案的相對路徑 (如 `../../../assets/images/pic.jpg`)。
-*   **Layout 型別相容性**：
-    *   原本 `Layout.astro` 的 `ogImage` 預期是 `string`，但優化過的資產是 `object`。
-    *   **解決方案**：修改 `Layout.astro` 的 Props 型別為 `string | any`，並判斷來源以正確提取 `.src` 網址。
-*   **Tailwind 4.0 編譯問題**：
+    *   **Layout 與組件型別相容性**：
+    *   `ogImage` 可能為字串或優化後的圖片物件。在 `Layout.astro` 或 `Card.astro` 中使用 `<Image />` 時，若遇到型別檢查失敗，可透過 `as any` 強制轉型解決編譯錯誤。
+    *   **LaTeX 樣式覆蓋**：
+    *   KaTeX 渲染出的 HTML 元素可能會繼承非預期的顏色設定（如藍色）。
+    *   **解決方案**：在 CSS 中針對 `.katex` 與 `.katex-display` 類別明確套用 `@apply text-foreground`，使其顏色與主題一致。
+    *   **Tailwind 4.0 編譯問題**：
     *   在 `<style>` 中使用 `@apply` 某些數值（如 `top-24`）可能導致編譯失敗。
     *   **解決方案**：直接將類名寫在 HTML 標籤上，避開 CSS 模組的解析限制。
 *   **TOC 佈局**：

@@ -36,9 +36,10 @@ ogImage: ../../../assets/images/ikoku_nikki/2.jpg
 
 也期許自己有面對未來的勇氣，希望能像朝一樣，走出失去親人的陰影，認真思考自己想要成為怎樣的人。
 
-因為槙生是小說家嘛，也是感同身受啦(X
+因為槙生是小說家嘛，也是感同身受啦(X)
 
 最後來聽聽 ED 吧：
+
 <div class="video-container">
   <iframe
     width="100%"
@@ -49,3 +50,4 @@ ogImage: ../../../assets/images/ikoku_nikki/2.jpg
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
     allowfullscreen
   ></iframe>
+</div>
