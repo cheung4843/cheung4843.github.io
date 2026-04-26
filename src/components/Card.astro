@@ -20,7 +20,7 @@ const { title, description, ogImage, ...props } = data;
       ogImage && (
         <a href={getPath(id, filePath)} class="shrink-0">
           <Image
-            src={ogImage}
+            src={ogImage as any}
             alt={title}
             width={400}
             height={200}
