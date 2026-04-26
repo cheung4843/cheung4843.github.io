@@ -1,7 +1,7 @@
 ---
 title: 機器學習入門概念
 author: cheung4843
-pubDatetime: 2026-04-26T12:00:00Z
+pubDatetime: 2026-04-27T01:18:00Z
 slug: machine-learning-newbie
 featured: true
 draft: false
