@@ -10,7 +10,7 @@ type Props = {
   author?: string;
   profile?: string;
   description?: string;
-  ogImage?: string;
+  ogImage?: string | any;
   canonicalURL?: string;
   pubDatetime?: Date;
   modDatetime?: Date | null;
@@ -29,7 +29,10 @@ const {
   scrollSmooth = false,
 } = Astro.props;
 
-const socialImageURL = new URL(ogImage, Astro.url);
+const socialImageURL = new URL(
+  typeof ogImage === "string" ? ogImage : ogImage.src,
+  Astro.url.origin
+);
 
 const structuredData = {
   "@context": "https://schema.org",

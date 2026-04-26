@@ -1,0 +1,47 @@
+---
+import type { MarkdownHeading } from "astro";
+
+export interface Props {
+  headings: MarkdownHeading[];
+}
+
+const { headings } = Astro.props;
+// 支援 h1, h2, h3, h4 層級
+const filteredHeadings = headings.filter(h => h.depth >= 1 && h.depth <= 4);
+---
+
+<nav id="toc" class="hidden xl:block absolute left-[calc(100%+2rem)] top-8 w-60">
+  <div class="sticky top-32">
+    <h2 class="mb-4 text-xs font-bold uppercase tracking-widest text-accent opacity-80">
+      ON THIS PAGE
+    </h2>
+    <ul class="text-sm border-s border-border">
+      {
+        filteredHeadings.map(heading => (
+          <li
+            class:list={[
+              "transition-all border-s-2 -ms-[1px]",
+              "border-transparent hover:border-accent",
+              {
+                "ps-2 py-1": heading.depth === 1,    // h1: 最小縮進
+                "ps-4 py-1": heading.depth === 2,    // h2
+                "ps-8 py-0.5 text-[0.85rem]": heading.depth === 3, // h3
+                "ps-12 py-0.5 text-[0.8rem]": heading.depth === 4, // h4
+              },
+            ]}
+          >
+            <a
+              href={`#${heading.slug}`}
+              class:list={[
+                "block transition-all hover:text-accent",
+                heading.depth <= 2 ? "font-medium text-skin-base opacity-90" : "text-skin-base opacity-60",
+              ]}
+            >
+              {heading.text}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</nav>

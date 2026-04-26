@@ -47,6 +47,14 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
       <p class="mt-2">
         您可以隨意瀏覽我的文章，或是透過下方的社群連結與我聯繫。
       </p>
+<video
+  autoplay
+  playsinline
+  class="mt-8 w-full rounded-xl border border-border shadow-lg"
+>
+  <source src="/Logo.mp4" type="video/mp4" />
+  您的瀏覽器不支援影片播放。
+</video>
       {
         // only display if at least one social link is enabled
         SOCIALS.length > 0 && (
