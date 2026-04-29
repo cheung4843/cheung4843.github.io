@@ -10,7 +10,7 @@ tags:
   - movie
   - war
 description: 人生第一部挪威電影。
-ogImage: ../../../assets/images/ikoku_nikki/2.jpg
+ogImage: ../../../assets/images/blücher/6.png
 ---
 
 # 前語
@@ -29,7 +29,7 @@ ogImage: ../../../assets/images/ikoku_nikki/2.jpg
 後來查到也有一部 *The King's choice* 也是相同背景。
 
 # 背景
-這部主要是描述1940年4月9日德軍「[威悉演習行動](https://zh.wikipedia.org/zh-tw/%E5%A8%81%E6%82%89%E6%BC%94%E4%B9%A0%E8%A1%8C%E5%8A%A8)」期間，挪威 Oscarsborg Fortress 守軍在布呂歇爾號與其隨艦侵入時的艱難抉擇，主角六旬上校比格爾·埃里克森決定開炮並擊沉該艦，為挪威爭取備戰時間的經典歷史事件。
+這部主要是描述1940年4月9日德軍「[威悉演習行動](https://zh.wikipedia.org/zh-tw/%E5%A8%81%E6%82%89%E6%BC%94%E4%B9%A0%E8%A1%8C%E5%8A%A8)」期間，挪威 Oscarsborg Fortress 守軍在布呂歇爾號與其隨艦入侵時的艱難時期，主角六旬上校比格爾·埃里克森決定開炮並擊沉該艦，為挪威政府爭取寶貴的逃難時間。
 
 參見[德勒巴克灣海戰](https://zh.wikipedia.org/zh-tw/%E5%BE%B7%E5%8B%92%E5%B7%B4%E5%85%8B%E7%81%A3%E6%B5%B7%E6%88%B0)。
 
@@ -48,20 +48,22 @@ ogImage: ../../../assets/images/ikoku_nikki/2.jpg
 *Norway has not been at war for over 120 years!*
 
 以及因為當時挪威是中立國，所以高層、部下不斷認為不該開炮在情報一直未指出那些軍艦的國籍時，主角說的:
-*Aren't they then the attacking party?*
+
+- *If a warship comes all the way uphere, aren't they violating our neutrality?*
+- *Aren't they then the attacking party?*
 
 ![](../../../assets/images/blücher/3.png)
 
-布呂歇爾號被擊沉後，主角神色凝重看著遠處在大火燃燒的軍艦與聽見德國人的哀號聲，這時才知道是德國主動進攻，此時埃里克森的女兒說:「我們應該幫助他們」，但埃里克森拉住了她的手，那個眼神真的沉重，或許是在想未來還會遭遇到什麼，或許是對戰爭的厭惡，但又無可避免必須反擊。
+布呂歇爾號被擊沉後，主角神色凝重看著遠處在大火燃燒的軍艦與聽見德國人的哀號聲，這時才知道是德國，此時埃里克森的女兒說:「我們應該幫助他們」，但埃里克森拉住了她的手，眼神五味雜陳，或許是在想未來還會遭遇到什麼，或許是對戰爭的厭惡，但又無可避免必須反擊。
 
 在這裡已經聞到反戰的味道了。
 
 ![](../../../assets/images/blücher/4.png)
 
-大火瀰漫的布呂歇爾號:
+火光沖天的布呂歇爾號:
 ![](../../../assets/images/blücher/5.png)
 
-整部裡面，我覺得最漂亮的畫面:
+以及整部裡面，我覺得最漂亮的畫面:
 ![](../../../assets/images/blücher/6.png)
 
 接著第二天一早，才得知大部分挪威重要城市都已淪陷，埃里克森收到上級的命令，盡可能長期死守。於是開始召集新兵，給每個人發槍，在準備發表演說的時候，馬上遭到德國空軍的轟炸，只得狼狽逃回，不過我嚴重懷疑他們根本沒AA，只有空襲警報而已......。
