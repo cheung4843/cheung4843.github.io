@@ -2,7 +2,7 @@
 title: 彼岸的起源
 author: cheung4843
 pubDatetime: 2026-04-26T12:00:00Z
-slug: the-origin-of-the-other-shore
+slug: the_origin_of_the_other_shore
 featured: true
 draft: false
 tags:
