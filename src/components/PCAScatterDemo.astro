@@ -1,0 +1,291 @@
+---
+// PCAScatterDemo.astro
+// 用法：在任何 .astro 或 .mdx 頁面裡 import 並放入即可
+// import PCAScatterDemo from '@/components/PCAScatterDemo.astro'
+// <PCAScatterDemo />
+---
+
+<div class="pca-demo">
+  <div class="chart-wrap">
+    <canvas id="pca-canvas"></canvas>
+  </div>
+
+  <div class="legend">
+    <span class="leg-item"><span class="leg-line" style="background:#534AB7"></span>PC1（最大變異方向）</span>
+    <span class="leg-item"><span class="leg-line" style="background:#1D9E75"></span>PC2（垂直於 PC1）</span>
+    <span class="leg-item"><span class="leg-dash"></span>投影到 PC1</span>
+  </div>
+
+  <div class="controls">
+    <div class="ctrl-row">
+      <label for="corr-slider">資料相關性</label>
+      <input type="range" id="corr-slider" min="-95" max="95" value="70" step="1" />
+      <span id="corr-val">0.70</span>
+    </div>
+    <div class="ctrl-row">
+      <label for="proj-slider">顯示投影</label>
+      <input type="range" id="proj-slider" min="0" max="1" value="1" step="1" style="max-width:80px" />
+      <span class="ctrl-hint">← 隱藏 / 顯示 →</span>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <p class="stat-label">PC1 解釋變異</p>
+      <p class="stat-val" id="var1">—</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-label">PC2 解釋變異</p>
+      <p class="stat-val" id="var2">—</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .pca-demo {
+    font-family: sans-serif;
+    max-width: 680px;
+    margin: 2rem auto;
+  }
+  .chart-wrap {
+    position: relative;
+    height: 340px;
+    margin-bottom: 8px;
+  }
+  .chart-wrap canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: #5f5e5a;
+    margin: 6px 0 14px;
+    align-items: center;
+  }
+  .leg-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .leg-line {
+    display: inline-block;
+    width: 24px;
+    height: 3px;
+    border-radius: 2px;
+  }
+  .leg-dash {
+    display: inline-block;
+    width: 24px;
+    height: 0;
+    border-top: 2px dashed #D85A30;
+  }
+  .controls {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .ctrl-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: #5f5e5a;
+  }
+  .ctrl-row label {
+    min-width: 80px;
+  }
+  .ctrl-row input[type="range"] {
+    flex: 1;
+  }
+  .ctrl-row span {
+    min-width: 42px;
+    text-align: right;
+    font-weight: 500;
+    font-family: monospace;
+    color: #2c2c2a;
+  }
+  .ctrl-hint {
+    font-size: 12px;
+    color: #888780 !important;
+    font-weight: normal !important;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .stat-card {
+    background: #f1efe8;
+    border-radius: 8px;
+    padding: 10px 14px;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: #5f5e5a;
+    margin: 0 0 2px;
+  }
+  .stat-val {
+    font-size: 20px;
+    font-weight: 500;
+    color: #2c2c2a;
+    margin: 0;
+    font-family: monospace;
+  }
+
+  /* Dark mode */
+  @media (prefers-color-scheme: dark) {
+    .legend { color: #b4b2a9; }
+    .ctrl-row { color: #b4b2a9; }
+    .ctrl-row span { color: #d3d1c7; }
+    .stat-card { background: #444441; }
+    .stat-label { color: #b4b2a9; }
+    .stat-val { color: #f1efe8; }
+  }
+</style>
+
+<script>
+  const canvas = document.getElementById('pca-canvas') as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d')!;
+  const N = 60;
+  let corrVal = 0.70;
+  let showProj = true;
+
+  // ── reproducible pseudo-random ──────────────────────────────
+  function makeSeed(s: number) {
+    let x = s;
+    return () => { x = Math.sin(x) * 10000; return x - Math.floor(x); };
+  }
+  function makeRandn(rng: () => number) {
+    return () => {
+      let u = 0, v = 0;
+      while (u === 0) u = rng();
+      while (v === 0) v = rng();
+      return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+    };
+  }
+
+  // ── generate correlated points ───────────────────────────────
+  function genPts(rho: number): [number, number][] {
+    const randn = makeRandn(makeSeed(99));
+    const pts: [number, number][] = [];
+    for (let i = 0; i < N; i++) {
+      const z1 = randn(), z2 = randn();
+      pts.push([z1 * 40, (rho * z1 + Math.sqrt(1 - rho * rho) * z2) * 28]);
+    }
+    return pts;
+  }
+
+  // ── PCA (2D) ─────────────────────────────────────────────────
+  function pca(pts: [number, number][]) {
+    const mx = pts.reduce((s, p) => s + p[0], 0) / N;
+    const my = pts.reduce((s, p) => s + p[1], 0) / N;
+    let sxx = 0, sxy = 0, syy = 0;
+    for (const [x, y] of pts) { sxx += (x-mx)**2; sxy += (x-mx)*(y-my); syy += (y-my)**2; }
+    sxx /= N; sxy /= N; syy /= N;
+    const tr = sxx + syy, det = sxx*syy - sxy*sxy;
+    const l1 = (tr + Math.sqrt(tr*tr - 4*det)) / 2;
+    const l2 = (tr - Math.sqrt(tr*tr - 4*det)) / 2;
+    let v1: [number, number] = Math.abs(sxy) > 1e-9 ? [l1 - syy, sxy] : [1, 0];
+    const len = Math.sqrt(v1[0]**2 + v1[1]**2);
+    v1 = [v1[0]/len, v1[1]/len];
+    return { mx, my, l1, l2, v1, v2: [-v1[1], v1[0]] as [number, number] };
+  }
+
+  // ── draw ─────────────────────────────────────────────────────
+  let pts = genPts(corrVal);
+
+  function resize() {
+    const rect = canvas.parentElement!.getBoundingClientRect();
+    canvas.width  = Math.round(rect.width);
+    canvas.height = 340;
+    draw();
+  }
+
+  function draw() {
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+    const cx = W/2, cy = H/2;
+    const dark = window.matchMedia('(prefers-color-scheme:dark)').matches;
+
+    // grid
+    ctx.strokeStyle = dark ? 'rgba(180,178,169,0.12)' : 'rgba(88,87,83,0.1)';
+    ctx.lineWidth = 0.5;
+    ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(W, cy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, H); ctx.stroke();
+
+    const { mx, my, l1, l2, v1, v2 } = pca(pts);
+
+    // projection dashes
+    if (showProj) {
+      for (const [x, y] of pts) {
+        const d = (x-mx)*v1[0] + (y-my)*v1[1];
+        const qx = cx + d*v1[0], qy = cy - d*v1[1];
+        ctx.strokeStyle = 'rgba(216,90,48,0.22)';
+        ctx.lineWidth = 0.8;
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        ctx.moveTo(cx + (x-mx), cy - (y-my));
+        ctx.lineTo(qx, qy);
+        ctx.stroke();
+      }
+      ctx.setLineDash([]);
+    }
+
+    // data points
+    for (const [x, y] of pts) {
+      ctx.beginPath();
+      ctx.arc(cx + (x-mx), cy - (y-my), 3.5, 0, Math.PI*2);
+      ctx.fillStyle = dark ? 'rgba(174,172,236,0.85)' : 'rgba(83,74,183,0.68)';
+      ctx.fill();
+    }
+
+    // PC axes
+    const sc1 = Math.sqrt(l1) * 2.8, sc2 = Math.sqrt(l2) * 2.8;
+
+    ctx.strokeStyle = '#534AB7'; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+    ctx.beginPath();
+    ctx.moveTo(cx - v1[0]*sc1, cy + v1[1]*sc1);
+    ctx.lineTo(cx + v1[0]*sc1, cy - v1[1]*sc1);
+    ctx.stroke();
+    ctx.fillStyle = '#534AB7';
+    ctx.font = '500 13px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('PC1', cx + v1[0]*sc1 + v1[0]*16, cy - v1[1]*sc1 - v1[1]*16);
+
+    ctx.strokeStyle = '#1D9E75'; ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(cx - v2[0]*sc2, cy + v2[1]*sc2);
+    ctx.lineTo(cx + v2[0]*sc2, cy - v2[1]*sc2);
+    ctx.stroke();
+    ctx.fillStyle = '#1D9E75';
+    ctx.fillText('PC2', cx + v2[0]*sc2 + v2[0]*16, cy - v2[1]*sc2 - v2[1]*16);
+
+    // stats
+    const total = l1 + l2;
+    (document.getElementById('var1') as HTMLElement).textContent =
+      total > 0 ? (l1/total*100).toFixed(1) + '%' : '—';
+    (document.getElementById('var2') as HTMLElement).textContent =
+      total > 0 ? (l2/total*100).toFixed(1) + '%' : '—';
+  }
+
+  // ── controls ─────────────────────────────────────────────────
+  document.getElementById('corr-slider')!.addEventListener('input', (e) => {
+    corrVal = (e.target as HTMLInputElement).valueAsNumber / 100;
+    (document.getElementById('corr-val') as HTMLElement).textContent = corrVal.toFixed(2);
+    pts = genPts(corrVal);
+    draw();
+  });
+
+  document.getElementById('proj-slider')!.addEventListener('input', (e) => {
+    showProj = (e.target as HTMLInputElement).valueAsNumber === 1;
+    draw();
+  });
+
+  window.addEventListener('resize', resize);
+  resize();
+</script>

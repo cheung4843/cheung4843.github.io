@@ -2,7 +2,7 @@
 title: 《異國日記》觀後感
 author: cheung4843
 pubDatetime: 2026-04-27T00:38:00Z
-slug: ikoku-nikki
+slug: ikoku_nikki
 featured: true
 draft: false
 tags:

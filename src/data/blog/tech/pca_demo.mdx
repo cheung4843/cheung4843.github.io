@@ -1,0 +1,29 @@
+---
+title: PCA 互動視覺化測試
+author: cheung4843
+pubDatetime: 2026-06-12T00:00:00Z
+slug: pca-demo
+featured: false
+draft: false
+tags:
+  - tech
+description: 測試 PCAScatterDemo 互動元件，拖動滑桿即時看到主成分如何變化。
+---
+
+import PCAScatterDemo from '@/components/PCAScatterDemo.astro'
+
+## 什麼是 PCA？
+
+PCA（主成分分析）是一種降維技術，目標是找到資料中變異最大的方向（主成分），將高維資料投影到少數幾個軸上，保留最多的資訊。
+
+## 互動示範
+
+試著拉動「資料相關性」滑桿，觀察 PC1 軸的方向如何隨之旋轉，以及 PC1 解釋變異的百分比如何變化。
+
+<PCAScatterDemo />
+
+幾個值得注意的地方：
+
+- 相關性越高（接近 ±1），PC1 解釋的變異比例越大，代表一條軸就能捕捉大部分資訊
+- PC1 和 PC2 永遠互相垂直
+- 把投影切到「隱藏」，可以更清楚看到散點和軸的幾何關係
